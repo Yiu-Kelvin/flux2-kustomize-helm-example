@@ -18,15 +18,21 @@ kind: HelmRelease
 metadata:
   name: ingress-nginx
   namespace: ingress-nginx
+spec: # <--- Moved these fields under 'spec'
   interval: 12h
   install:
-    strategy:
-      name: RetryOnFailure
-      retryInterval: 2m
+    remediation: # Use 'remediation' for retry strategy
+      retries: -1 # Retry indefinitely on failure
+      # For simple retry, you might just need 'retries'
+      # strategy: # This 'strategy' field is not part of the standard HelmRelease API for install/upgrade
+      #   name: RetryOnFailure
+      #   retryInterval: 2m
   upgrade:
-    strategy:
-      name: RetryOnFailure
-      retryInterval: 3m
+    remediation: # Use 'remediation' for retry strategy
+      retries: -1 # Retry indefinitely on failure
+      # strategy: # This 'strategy' field is not part of the standard HelmRelease API for install/upgrade
+      #   name: RetryOnFailure
+      #   retryInterval: 3m
   chart:
     spec:
       chart: ingress-nginx
@@ -35,7 +41,8 @@ metadata:
         kind: HelmRepository
         name: ingress-nginx
         namespace: ingress-nginx
-      interval: 12h
+      # Removed redundant 'interval' from chart.spec
   values:
+    controller: # Ingress NGINX values are typically under 'controller'
       service:
-        type: "Loadbalancer"
+        type: "LoadBalancer" # Corrected capitalization for LoadBalancer
