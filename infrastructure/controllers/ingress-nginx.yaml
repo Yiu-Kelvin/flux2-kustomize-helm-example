@@ -42,4 +42,4 @@ spec:
       service:
         type: LoadBalancer # Corrected capitalization as you did, ensuring it's "LoadBalancer"
     admissionWebhooks:
-      enabled: false
+      enabled: true
