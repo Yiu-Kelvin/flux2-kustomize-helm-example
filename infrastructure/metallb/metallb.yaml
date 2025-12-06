@@ -41,3 +41,4 @@ spec:
       logLevel: info 
     speaker:
       enabled: true
+      ignoreExcludeLB: true
