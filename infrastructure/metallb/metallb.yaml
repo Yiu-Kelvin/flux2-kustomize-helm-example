@@ -41,4 +41,5 @@ spec:
       logLevel: info 
     speaker:
       enabled: true
+      # must be added for speaker to response to ARP requests
       ignoreExcludeLB: true
